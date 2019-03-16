@@ -1,0 +1,4 @@
+web:
+  image: registry.gitlab.com/alex_roman/heartball-backend:latest
+  ports:
+    - "3000:3000"

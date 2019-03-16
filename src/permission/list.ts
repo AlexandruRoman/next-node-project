@@ -1,0 +1,5 @@
+const PERMISSION = {
+    MANAGE_ROLES: 'MANAGE_ROLES'
+}
+
+export default PERMISSION
