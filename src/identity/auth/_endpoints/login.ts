@@ -1,10 +1,10 @@
 import { Router, NextFunction, Response } from "express";
-import { IPermissionRequest } from "src/permission/types";
-import { IUserModel, User } from "src/user/schema";
+import { IUserModel } from "src/identity/user/schema";
 import * as Joi from 'joi'
 import * as bcrypt from 'bcrypt'
-import { Role } from "src/role/schema";
-import ROLE_LIST from "src/role/list";
+import { userDal_getUserWithPermissions } from "src/identity/user/dal";
+import { generateUserToken } from "src/jwt/factory";
+import { IPermissionRequest } from "src/_helpers/api";
 
 /*
  *         ___      .______    __  
@@ -15,10 +15,10 @@ import ROLE_LIST from "src/role/list";
  *    /__/     \__\ | _|      |__| 
  */
 
-export default function authEndpoint_signup() {
+export default function authEndpoint_login() {
     const router = Router()
     router.post(
-        '/signup',
+        '/login',
         validation,
         controller
     )
@@ -36,14 +36,23 @@ export default function authEndpoint_signup() {
 
 const schema = {
     email: Joi.string().min(5).max(255).required().email(),
-    name: Joi.string().min(2).max(255).required(),
-    password: Joi.string().min(8).max(255).required()
-}
+    password: Joi.string().min(5).max(255).required()
+};
 
 async function validation(req: IRequest, res: Response, next: NextFunction) {
     const validation = Joi.validate(req.body, schema)
     if (validation.error)
         return res.status(400).send(validation.error)
+
+    let user = await userDal_getUserWithPermissions({ email: req.body.email })
+    if (!user)
+        return res.status(400).send('Invalid email.')
+
+    const validPassword = await bcrypt.compare(req.body.password, user.password)
+    if (!validPassword)
+        return res.status(400).send('Wrong password.')
+
+    req.user = user
     next()
 }
 
@@ -57,22 +66,9 @@ async function validation(req: IRequest, res: Response, next: NextFunction) {
  */
 
 async function controller(req: IRequest, res: Response) {
-    try {
-        const role = await Role.findOne({ name: ROLE_LIST.CLIENT })
-        const { name, email, password } = req.body
-        const hashedPassword = await bcrypt.hash(password, 10)
-        const user = new User({
-            name,
-            email,
-            password: hashedPassword,
-            role: role.id
-        })
-        await user.validate()
-        await user.save()
-        return res.status(200).json(user)
-    } catch (error) {
-        return res.status(400).send(error)
-    }
+    const user = req.user
+    const token = generateUserToken(user)
+    return res.status(200).send(token)
 }
 
 /*
@@ -85,7 +81,6 @@ async function controller(req: IRequest, res: Response) {
  */
 
 interface IBody {
-    name: string
     email: string
     password: string
 }
@@ -94,4 +89,3 @@ interface IRequest extends IPermissionRequest {
     user: IUserModel
     body: IBody
 }
-

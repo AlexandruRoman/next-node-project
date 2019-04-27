@@ -1,11 +1,11 @@
 import { Schema, Document, Model, model } from 'mongoose'
-import { IPermissionModel, Permission } from 'src/permission/schema';
+import { Permission, IPermission } from '../permission/schema';
 
 const permisson = Permission
 
 export interface IRole {
     name: string
-    permissions: (Schema.Types.ObjectId | IPermissionModel)[]
+    permissions: (Schema.Types.ObjectId | IPermission)[]
 }
 
 export interface IRoleModel extends IRole, Document {

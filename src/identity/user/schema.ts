@@ -1,11 +1,11 @@
 import { Schema, Document, Model, model } from 'mongoose'
-import { IRoleModel } from 'src/role/schema';
+import { IRole } from 'src/identity/role/schema';
 
 export interface IUser {
     name: string
     email: string
     password: string
-    role: Schema.Types.ObjectId | IRoleModel
+    role: Schema.Types.ObjectId | IRole
 }
 
 export interface IUserModel extends IUser, Document {

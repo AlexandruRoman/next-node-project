@@ -1,4 +1,4 @@
-import { IRole } from "src/role/schema";
+import { IRole } from "src/identity/role/schema";
 
 interface IJwtUserData {
     id?: string

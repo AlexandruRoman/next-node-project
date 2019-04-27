@@ -1,4 +1,4 @@
-import authApi from "./auth/api";
+import authApi from "./identity/auth/api";
 import { createRouter } from "./_helpers/api";
 
 export default function indexApi() {

@@ -1,9 +1,9 @@
-import { IUserModel } from "src/user/schema";
+import { IUserModel } from "src/identity/user/schema";
 import { IJwtData } from "./types";
 import * as jwt from 'jsonwebtoken'
-import { IRole } from "src/role/schema";
-import ROLE_LIST from "src/role/list";
-import { roleDal_getRoleWithPermissions } from "src/role/dal";
+import { IRole } from "src/identity/role/schema";
+import ROLE_LIST from "src/identity/role/list";
+import { roleDal_getRoleWithPermissions } from "src/identity/role/dal";
 
 export function generateUserToken(user: IUserModel) {
     const role: IRole = {
