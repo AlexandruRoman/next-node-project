@@ -1,5 +1,0 @@
-auth&auth
-    lista permisiuni si mapare cu roluri
-    lista roluri
-    generare token pentru guest
-singleton

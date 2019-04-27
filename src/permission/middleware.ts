@@ -1,8 +1,8 @@
 import * as jwt from 'jsonwebtoken'
 import { IPermissionModel } from 'src/permission/schema';
-import { IPermissionRequest } from './interface';
+import { IPermissionRequest } from './types';
 import { Response, NextFunction } from 'express';
-import { IJwtData } from 'src/jwt/interface';
+import { IJwtData } from 'src/jwt/types';
 import { Schema } from 'mongoose';
 
 export default function checkPermission(permissionName: string) {
