@@ -1,5 +1,5 @@
 import { Schema, Document, Model, model } from 'mongoose'
-import { Permission, IPermission } from '../permission/schema';
+import { Permission, IPermission } from '../permission/schema'
 
 const permisson = Permission
 
@@ -8,21 +8,22 @@ export interface IRole {
     permissions: (Schema.Types.ObjectId | IPermission)[]
 }
 
-export interface IRoleModel extends IRole, Document {
-}
+export interface IRoleModel extends IRole, Document {}
 
 export let RoleSchema: Schema = new Schema({
     name: {
         type: String,
         required: true,
-        minlength: 5,
-        maxlength: 50
+        maxlength: 50,
+        unique: true
     },
-    permissions: [{
-        type: Schema.Types.ObjectId,
-        ref: 'Permission',
-        required: true
-    }],
+    permissions: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Permission',
+            required: true
+        }
+    ]
 })
 
-export const Role: Model<IRoleModel> = model<IRoleModel>("Role", RoleSchema)
+export const Role: Model<IRoleModel> = model<IRoleModel>('Role', RoleSchema)

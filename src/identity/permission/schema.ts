@@ -4,17 +4,15 @@ export interface IPermission {
     name: string
 }
 
-export interface IPermissionModel extends IPermission, Document {
-}
+export interface IPermissionModel extends IPermission, Document {}
 
 export let PermissionSchema: Schema = new Schema({
     name: {
         type: String,
         required: true,
-        minlength: 2,
         maxlength: 50,
         unique: true
     }
 })
 
-export const Permission: Model<IPermissionModel> = model<IPermissionModel>("Permission", PermissionSchema)
+export const Permission: Model<IPermissionModel> = model<IPermissionModel>('Permission', PermissionSchema)

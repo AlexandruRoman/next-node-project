@@ -1,5 +1,9 @@
 const PERMISSION_LIST = {
-    MANAGE_ROLES: 'MANAGE_ROLES'
+    GUEST: 'GUEST',
+    CLIENT: 'CLIENT',
+    SELLER: 'SELLER',
+    STAFF: 'STAFF',
+    ADMIN: 'ADMIN'
 }
 
 export default PERMISSION_LIST
