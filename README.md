@@ -16,7 +16,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/AlexandruRoman/next-node-project">
-    <img src="logo.png" alt="Logo" width="320" height="320">
+    <img src="logo.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">Next Node Project</h3>
