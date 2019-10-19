@@ -50,8 +50,6 @@
 
 ## About The Project
 
-[![Snippet Store Showcase][product-screenshot]](https://github.com/AlexandruRoman/next-node-project)
-
 We all know that a project without a good structure is anything but scalable. It is hard to design your project thinking about how big it can become. This repo is an opinionated project structure for a Node.js API. It is built with Express.js, Mongoose and TypeScript but can easily be configured to match your developer taste.
 
 ### Features
